@@ -1,8 +1,8 @@
 <h1 align="center">Forked this repository from official creators and added 2 python scripts:</h1>
-## oid_to_pascal_voc_xml.py
-## voc_to_YOLOv3.py
+<b>oid_to_pascal_voc_xml.py</b><br>
+<b>voc_to_YOLOv3.py</b><br><br>
 
-instructions to create custom YOLO v3 dataset:
+instructions to create custom YOLO v3 dataset:<br>
 [pylessons.com](https://pylessons.com/YOLOv3-custom-data/)
 
 
