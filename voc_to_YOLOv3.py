@@ -3,7 +3,6 @@ from os import getcwd
 import os
 
 
-dataset_test = 'OID\\Dataset\\test\\'
 dataset_train = 'OID\\Dataset\\train\\'
 dataset_file = '4_CLASS_test.txt'
 classes_file = dataset_file[:-4]+'_classes.txt'
@@ -19,7 +18,7 @@ def test(fullname):
     in_file = open(fullname)
     tree=ET.parse(in_file)
     root = tree.getroot()
-    for obj in root.iter('object'):
+    for i, obj in enumerate(root.iter('object')):
         difficult = obj.find('difficult').text
         cls = obj.find('name').text
         if cls not in CLS or int(difficult)==1:
@@ -29,10 +28,20 @@ def test(fullname):
         b = (int(xmlbox.find('xmin').text), int(xmlbox.find('ymin').text), int(xmlbox.find('xmax').text), int(xmlbox.find('ymax').text))
         bb += (" " + ",".join([str(a) for a in b]) + ',' + str(cls_id))
 
-    list_file = open(dataset_file, 'a')
-    file_string = str(fullname)[:-4]+'.jpg'+bb+"\n"
-    list_file.write(file_string)
-    list_file.close()
+        # we need this because I don't know overlapping or something like that
+        if cls == 'Traffic_light':
+            list_file = open(dataset_file, 'a')
+            file_string = str(fullname)[:-4]+'.jpg'+bb+'\n'
+            list_file.write(file_string)
+            list_file.close()
+            bb = ""
+
+    if bb != "":
+        list_file = open(dataset_file, 'a')
+        file_string = str(fullname)[:-4]+'.jpg'+bb+'\n'
+        list_file.write(file_string)
+        list_file.close()
+
 
 
 for CLASS in classes:

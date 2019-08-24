@@ -6,10 +6,9 @@ import cv2
 from textwrap import dedent
 from lxml import etree
 
+XML_DIR = ''
 
-XML_DIR = ''#To_PASCAL_XML'
-
-
+#os.chdir('Dataset')
 os.chdir(os.path.join("OID", "Dataset"))
 DIRS = os.listdir(os.getcwd())
 
@@ -18,12 +17,11 @@ for DIR in DIRS:
         os.chdir(DIR)
 
         print("Currently in Subdirectory:", DIR)
-
-        CLASS_DIRS = os.listdir(os.getcwd())
+        CLASS_DIRS = os.listdir(os.getcwd()) 
         for CLASS_DIR in CLASS_DIRS:
             if " " in CLASS_DIR:
                 os.rename(CLASS_DIR, CLASS_DIR.replace(" ", "_"))
-
+        
         CLASS_DIRS = os.listdir(os.getcwd())
         for CLASS_DIR in CLASS_DIRS:
             #if " " in CLASS_DIR:
@@ -76,7 +74,12 @@ for DIR in DIRS:
 
                         img = cv2.imread(filename_xml.text)
 
-                        width.text = str(img.shape[1])
+                        try:
+                            width.text = str(img.shape[1])
+                        except AttributeError:
+                            #os.chdir("..")
+                            os.chdir("Label")
+                            continue
                         height.text = str(img.shape[0])
                         depth.text = str(img.shape[2])
 
