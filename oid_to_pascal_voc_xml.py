@@ -98,18 +98,18 @@ for DIR in DIRS:
                         for line in label_original:
                             line = line.strip()
                             l = line.split(' ')
+                            
+                            class_name_len = len(l) - 4 # 4 coordinates
                             class_name = l[0]
-                            try:
-                                xmin_l = str(int(float(l[1])))
-                                add1 = 0
-                            except ValueError:
-                                class_name = l[0]+"_"+l[1]
-                                add1 = 1
+                            for i in range(1,class_name_len):
+                                class_name = f"{class_name}_{l[i]}"
 
-                            xmin_l = str(int(float(l[1+add1])))
-                            ymin_l = str(int(float(l[2+add1])))
-                            xmax_l = str(int(float(l[3+add1])))
-                            ymax_l = str(int(float(l[4+add1])))
+                            addi = class_name_len
+
+                            xmin_l = str(int(round(float(l[0+addi]))))
+                            ymin_l = str(int(round(float(l[1+addi]))))
+                            xmax_l = str(int(round(float(l[2+addi]))))
+                            ymax_l = str(int(round(float(l[3+addi]))))
                             
                             obj = etree.Element("object")
                             annotation.append(obj)
