@@ -3,13 +3,13 @@ from os import getcwd
 import os
 
 
-dataset_train = 'OID\\Dataset\\train\\'
+dataset_train = os.path.join("OID","Dataset","train")
 dataset_file = '4_CLASS_test.txt'
 classes_file = dataset_file[:-4]+'_classes.txt'
 
 
 CLS = os.listdir(dataset_train)
-classes =[dataset_train+CLASS for CLASS in CLS]
+classes =[os.path.join(dataset_train,CLASS) for CLASS in CLS]
 wd = getcwd()
 
 
@@ -48,7 +48,7 @@ for CLASS in classes:
     for filename in os.listdir(CLASS):
         if not filename.endswith('.xml'):
             continue
-        fullname = os.getcwd()+'\\'+CLASS+'\\'+filename
+        fullname = os.path.join(os.getcwd(),CLASS,filename)
         test(fullname)
 
 for CLASS in CLS:
